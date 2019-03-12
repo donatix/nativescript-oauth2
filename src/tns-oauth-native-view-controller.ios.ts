@@ -43,17 +43,24 @@ export class TnsOAuthLoginNativeViewController extends NSObject
     fullUrl: string,
     frame: Frame
   ): void {
-    this.safariViewController = SFSafariViewController.alloc().initWithURLEntersReaderIfAvailable(
-      NSURL.URLWithString(fullUrl),
-      false
-    );
+    // this.safariViewController = SFSafariViewController.alloc().initWithURLEntersReaderIfAvailable(
+    //   NSURL.URLWithString(fullUrl),
+    //   false
+    // );
 
-    this.safariViewController.delegate = this;
-    frame.ios.controller.presentViewControllerAnimatedCompletion(
-      this.safariViewController,
-      true,
-      null
-    );
+    // this.safariViewController.delegate = this;
+    // frame.ios.controller.presentViewControllerAnimatedCompletion(
+    //   this.safariViewController,
+    //   true,
+    //   null
+    // );
+    if (UIApplication.shared.canOpenURL(NSURL.URLWithString(fullUrl))) {
+      UIApplication.shared.open(NSURL.URLWithString(fullUrl), options: [: ], completionHandler: nil)
+    }
+
+    //   if (ios.getter(UIApplication, UIApplication.sharedApplication).canOpenURL(url)) {
+    //     return ios.getter(UIApplication, UIApplication.sharedApplication).openURL(url);
+    // }
   }
 
   public resumeWithUrl(url: string): boolean {
